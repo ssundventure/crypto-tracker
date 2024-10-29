@@ -198,6 +198,10 @@ function Coin() {
               <span>${infoData?.symbol}</span>
             </OverviewItem>
             <OverviewItem>
+              <span>Price:</span>
+              <span>${tickersData?.quotes?.USD?.price?.toFixed(3)}</span>
+            </OverviewItem>
+            <OverviewItem>
               <span>Open Source:</span>
               <span>{infoData?.open_source ? "Yes" : "No"}</span>
             </OverviewItem>
