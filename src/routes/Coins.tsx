@@ -2,6 +2,8 @@ import { useQuery } from "react-query";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { fetchCoins } from "../api";
+import { useRecoilState, useSetRecoilState } from "recoil";
+import { isDarkAtom } from "../atoms";
 
 const Container = styled.div`
   padding: 0px 20px;
@@ -20,7 +22,7 @@ const CoinsList = styled.ul``;
 
 const Coin = styled.li`
   background-color: white;
-  color: ${(props) => props.theme.bgColor};
+  color: ${(props) => props.theme.textColor};
   border-radius: 15px;
   margin-bottom: 10px;
   a {
@@ -52,6 +54,13 @@ const Img = styled.img`
   margin-right: 10px;
 `;
 
+const ThemeBtn = styled.button`
+  border-radius: 50px;
+  border: none;
+  color: ${(props) => props.theme.textColor};
+  background-color: ${(props) => props.theme.accentColor};
+`;
+
 interface ICoin {
   id: string;
   name: string;
@@ -64,10 +73,16 @@ interface ICoin {
 
 function Coins() {
   const { isLoading, data } = useQuery<ICoin[]>("allCoins", fetchCoins);
+  const [isDark, setIsDark] = useRecoilState(isDarkAtom);
+
+  const toggleDarkAtom = () => setIsDark((prev) => !prev);
   return (
     <Container>
       <Header>
         <Title>코인</Title>
+        <ThemeBtn onClick={toggleDarkAtom}>
+          {isDark ? "🌙 다크 모드" : "☀️ 라이트 모드"}
+        </ThemeBtn>
       </Header>
       {isLoading ? (
         <Loader>Loading...</Loader>

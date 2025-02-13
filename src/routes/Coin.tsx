@@ -18,6 +18,21 @@ const Title = styled.h1`
   color: ${(props) => props.theme.accentColor};
 `;
 
+const BackButton = styled.button`
+  width: 85px;
+  color: ${(props) => props.theme.accentColor};
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 7px 15px;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+  transition: box-shadow 0.3s ease; /* 부드러운 전환 효과 */
+  border-radius: 10px;
+  &:hover {
+    box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.4);
+  }
+`;
+
 const Loader = styled.span`
   text-align: center;
   display: block;
@@ -31,7 +46,8 @@ const Container = styled.div`
 
 const Header = styled.header`
   height: 15vh;
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
   justify-content: center;
   align-items: center;
 `;
@@ -165,6 +181,7 @@ function Coin() {
         </title>
       </Helmet>
       <Header>
+        <Link to={`/`}><BackButton>&larr; BACK</BackButton></Link>
         <Title>
           {state?.name ? state.name : loading ? "Loading..." : infoData?.name}
         </Title>
