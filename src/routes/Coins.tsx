@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { fetchCoins } from "../api";
 import { useRecoilState, useSetRecoilState } from "recoil";
-import { isDarkAtom } from "../atoms";
+import { isDarkAtom, THEME_MODE } from "../atoms";
 
 const Container = styled.div`
   padding: 0px 20px;
@@ -75,14 +75,13 @@ function Coins() {
   const { isLoading, data } = useQuery<ICoin[]>("allCoins", fetchCoins);
   const [isDark, setIsDark] = useRecoilState(isDarkAtom);
   const toggleDarkAtom = () => {
-    
-    setIsDark((prev) => {
-      const newMode = !prev
-      //  localStorage.setItem("isDarkMode",JSON.stringify(isDark));
-      return newMode;  
+    setIsDark((prev: boolean) => {
+      const newMode = !prev;
+      localStorage.setItem(THEME_MODE, JSON.stringify(newMode));
+      return newMode;
     });
   };
-  
+
   return (
     <Container>
       <Header>
